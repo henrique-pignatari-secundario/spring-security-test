@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  authdb:
+    container_name: authdb
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=senha123
+      - POSTGRES_DB=AuthDb
+    volumes:
+      - auth_data:/var/lib/postgresql/data/
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=senha123
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  auth_data:
+  pgadmin_data:
